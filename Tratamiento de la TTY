@@ -1,0 +1,59 @@
+Este flujo de comandos configura una sesión TTY completa y funcional, especialmente útil en situaciones donde se ha iniciado una sesión de shell limitada, como en conexiones remotas de tipo "reverse shell". Mejora la estabilidad y la interacción en la terminal, lo cual es esencial para que se muestren correctamente los comandos y salidas.
+
+script /dev/null -c bash
+ctrl+Z
+stty raw -echo; fg
+reset xterm
+stty size
+stty rows 38 columns 168
+export TERM=xterm
+export SHELL=bash
+
+1- script /dev/null -c bash:
+
+    El comando script inicia una sesión de shell de tipo TTY, que simula una terminal interactiva.
+    script /dev/null descarta la salida del script, enviándola al dispositivo nulo (/dev/null) en lugar de guardar en un archivo.
+    -c bash especifica que se inicie una nueva sesión de bash.
+    Propósito: Ayuda a tener un entorno TTY más funcional cuando la conexión remota no inicia en una terminal interactiva o cuando se trata de “escapar” de una shell restringida (por ejemplo, en sistemas limitados o durante un "reverse shell").
+
+2- ctrl+Z:
+
+    En este punto, al presionar Ctrl + Z, estamos suspendiendo temporalmente la sesión de bash en segundo plano.
+    Esto detiene la ejecución de la sesión de bash y devuelve el control a la shell principal.
+    Propósito: Suspender el proceso para modificar el modo de la terminal y luego regresar a él en primer plano.
+
+3- stty raw -echo; fg:
+
+    stty raw -echo cambia el modo de la terminal.
+        raw establece el modo "crudo" (raw mode), que desactiva las traducciones de caracteres de entrada (por ejemplo, no interpreta Ctrl+C como una señal de interrupción).
+        -echo desactiva la retroalimentación de caracteres en la pantalla (los caracteres que escribas no aparecerán en la terminal).
+    fg devuelve el proceso suspendido a primer plano, reanudando la sesión de bash.
+    Propósito: Cambia el modo de la terminal para mejorar la interactividad con la sesión TTY.
+
+4- reset xterm:
+
+    Este comando restablece el estado de la terminal a valores predeterminados y corrige problemas gráficos o de formato de texto en la sesión.
+    Propósito: Reajustar la configuración de la terminal para que funcione correctamente, especialmente si hay problemas de visualización.
+
+    xterm es un emulador de terminal que proporciona capacidades extendidas para algunas configuraciones y comandos de la terminal.
+    Propósito: Al especificar xterm, establecemos las capacidades y el tipo de terminal que usaremos.
+
+5- stty size:
+
+    Este comando devuelve el tamaño actual de la ventana de la terminal en formato rows (filas) y columns (columnas).
+    Propósito: Verificar el tamaño actual de la terminal, lo que es útil para saber si es necesario reajustarla.
+
+stty rows 38 columns 168:
+
+    Este comando establece manualmente el número de filas (rows) y columnas (columns) de la terminal.
+    Propósito: Asegurar un tamaño específico en la terminal para que las aplicaciones o comandos se muestren correctamente.
+
+6- export TERM=xterm:
+
+    Este comando configura la variable de entorno TERM, que define el tipo de terminal. Al exportar TERM=xterm, estamos diciendo al sistema que estamos usando un emulador de terminal compatible con xterm.
+    Propósito: Configurar el tipo de terminal para que las aplicaciones dentro de la sesión TTY funcionen adecuadamente.
+
+7- export SHELL=bash:
+
+    Esto establece la variable de entorno SHELL a bash, lo que asegura que bash se use como el shell principal.
+    Propósito: Garantizar que cualquier comando o script que consulte la variable SHELL sepa que se está usando bash.
