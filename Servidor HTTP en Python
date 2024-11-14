@@ -1,0 +1,25 @@
+Montar un servidor HTTP en Python es bastante sencillo gracias a los módulos http.server y 
+socketserver que vienen preinstalados en Python. A continuación, te muestro varias formas de levantar un 
+servidor básico usando Python.Estos métodos permiten levantar rápidamente un servidor HTTP en Python, adecuado 
+para desarrollo, pruebas, o compartir archivos en red local.
+
+1. Servidor HTTP Simple (Python 3)
+
+Este comando monta rápidamente un servidor HTTP en el directorio actual:
+
+python3 -m http.server 8000
+
+    Explicación:
+        -m http.server utiliza el módulo http.server para crear un servidor HTTP.
+        8000 es el puerto en el que se ejecutará el servidor. Puedes cambiarlo por otro número de puerto disponible en tu sistema.
+
+    Uso:
+        Una vez ejecutado el comando, abre un navegador web y ve a http://localhost:8000 o http://<tu-ip>:8000 en la red local.
+        Este servidor servirá todos los archivos en el directorio actual, lo que lo hace útil para compartir rápidamente archivos en una red local.
+
+2. Servidor HTTP con Directorio Específico
+
+Si quieres especificar el directorio desde el cual se servirán los archivos, puedes cambiar al directorio deseado antes de ejecutar el comando:
+
+cd /ruta/a/tu/directorio
+python3 -m http.server 8000
