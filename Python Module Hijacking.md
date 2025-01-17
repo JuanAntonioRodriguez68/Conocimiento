@@ -1,6 +1,6 @@
 Funcionamiento del Ataque
 
-    Orden de Búsqueda de Módulos:
+   1- **Orden de Búsqueda de Módulos**:
 
 
         Python busca primero en el directorio actual desde donde se ejecuta el script. Si encuentra un archivo 
@@ -9,7 +9,7 @@ Funcionamiento del Ataque
 
 
 
-    Creación de un Módulo Malicioso:
+  2- **Creación de un Módulo Malicioso**:
 
 
         Al crear un archivo con el mismo nombre que un módulo legítimo (por ejemplo, requests.py), se puede 
@@ -18,7 +18,7 @@ Funcionamiento del Ataque
 
 
 
-    Ejecución del Código Malicioso:
+3- **Ejecución del Código Malicioso**:
 
 
         Si el script se ejecuta con privilegios elevados (por ejemplo, usando sudo), el código malicioso se 
