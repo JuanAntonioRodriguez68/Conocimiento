@@ -28,10 +28,15 @@ Funcionamiento del Ataque
 **Ejemplo**
 
 iker@181f77f462ad:~$ cat geo_ip.py 
+
 import requests; 
+
 ip = input('Introduce la direccion IP que quieras geolocalizar: ')
+
 respuesta = requests.get(f'http://ip-api.com/json/{ip}')
+
 data = respuesta.json()
+
 print(data)
 
 nano requests.py
