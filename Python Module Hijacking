@@ -4,7 +4,7 @@ resuelve las importaciones de módulos.
 
 ¿Cómo Funciona?
 
-1- #Orden de Búsqueda de Módulos#:
+1- **Orden de Búsqueda de Módulos**:
 
 Cuando Python importa un módulo, sigue un orden de búsqueda específico. 
 
@@ -14,7 +14,7 @@ Si encuentra un archivo con el mismo nombre que el módulo que intenta
 
 importar, lo cargará en lugar del módulo original.
 
-2- #Creación de un Módulo Malicioso#:
+2- **Creación de un Módulo Malicioso**:
 
 
 Al crear un archivo con el mismo nombre que un módulo legítimo 
@@ -24,7 +24,7 @@ Al crear un archivo con el mismo nombre que un módulo legítimo
 se ejecutará cuando el script intente importar ese módulo.
 
 
-3- #Ejecución del Código Malicioso#:
+3- **Ejecución del Código Malicioso**:
 
 
 Cuando ejecutamos el script con sudo, y este intenta importar requests, 
